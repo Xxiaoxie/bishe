@@ -40,7 +40,7 @@ from signal_analysis import (
 # ------------------------------------------------------------------
 # 上线配置区（部署前改成你自己的，共三处：这里 2 处 + secrets.toml 1 处）
 # ------------------------------------------------------------------
-CONTACT_WECHAT = 'your-wechat-id'                  # 客服微信号（侧边栏 + 付款引导处显示）
+CONTACT_QQ = '你的QQ号'                            # 客服QQ号（侧边栏 + 付款引导处显示，上线前改成自己的小号）
 QR_CODE_GLOB = os.path.join('static', '收款码.*')  # 收款码图片，如 static/收款码.png（jpg 也行）
 
 
@@ -84,7 +84,7 @@ with st.sidebar:
     )
     st.divider()
     st.caption('🔒 数据仅在本次会话内存中分析，不做任何保存。')
-    st.caption(f'🛠 由独立开发者出品 · 购买咨询微信：`{CONTACT_WECHAT}`')
+    st.caption(f'🛠 由独立开发者出品 · 唯一客服QQ：`{CONTACT_QQ}`')
 
 # ------------------------------------------------------------------
 # 主页面：标题 + 上传
@@ -213,7 +213,7 @@ with pay_right:
         '• `毕设分析_Matlab.m`：逐行中文注释，Matlab 里一键复现全部图表\n'
         '• `毕设分析_Python.py`：逐行中文注释，免 Matlab 也能复现\n'
         '• `说明.txt`：参数、结论、使用方法全写好，答辩照着讲就行\n\n'
-        f'付款后截图发给客服微信 `{CONTACT_WECHAT}`，秒发交付包。'
+        f'付款后截图发给唯一客服QQ `{CONTACT_QQ}`，秒发交付包（谨防仿冒，只认此号）。'
     )
 
 # ------------------------------------------------------------------
@@ -230,7 +230,7 @@ with st.expander('📦 交付区（管理员专用 · 密码解锁）', expanded
     if pwd != admin_pw:
         if pwd:
             st.warning('❌ 密码不正确。')
-        st.caption('🛡 管理员输入密码后即可下载交付包；普通用户付款后请联系客服微信获取。')
+        st.caption('🛡 管理员输入密码后即可下载交付包；普通用户付款后请联系唯一客服QQ获取。')
         st.stop()
 
     st.caption(f'交付对象：{uploaded.name} | Fs = {fs:g} Hz | 主频 {fp:.2f} Hz | 截止 {fc_used:.2f} Hz')

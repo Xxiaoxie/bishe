@@ -56,7 +56,7 @@ streamlit run app.py
 
 | 配置项 | 位置 | 说明 |
 | --- | --- | --- |
-| 客服微信号 | `app.py` 顶部 `CONTACT_WECHAT` | 显示在侧边栏与付款引导处 |
+| 客服QQ号 | `app.py` 顶部 `CONTACT_QQ` | 显示在侧边栏与付款引导处（建议用小号，页面已注明"唯一客服"防仿冒） |
 | 收款码图片 | `static/收款码.png` | 微信 / 支付宝收款码，jpg 亦可，文件名保持「收款码」 |
 | 管理员密码 | `.streamlit/secrets.toml` → `admin_password` | 解锁页面底部交付区；模板见 `secrets.toml.example` |
 
