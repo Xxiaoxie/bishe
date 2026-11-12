@@ -1,0 +1,16 @@
+# Streamlit 配置：主色与图表的学术蓝保持一致
+[theme]
+primaryColor = "#1f4e9c"
+
+[client]
+# 收起右上角开发者工具栏：隐藏 Deploy 按钮和 ⋮ 菜单，界面更像成品
+# 本机开发想找回菜单时，把 "minimal" 改回 "auto" 即可
+toolbarMode = "minimal"
+
+[server]
+# 上传上限 20MB：Streamlit Cloud 免费版容器只有 1GB 内存，20MB 对毕设数据绰绰有余
+maxUploadSize = 20
+
+[browser]
+# 关闭 Streamlit 匿名使用统计上报
+gatherUsageStats = false
