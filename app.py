@@ -12,6 +12,7 @@ app.py —— 「毕设急救包」Signal-Easy 主程序（Streamlit Web 应用�
 """
 
 import glob
+import io
 import os
 
 import numpy as np
@@ -40,7 +41,7 @@ from signal_analysis import (
 # ------------------------------------------------------------------
 # 上线配置区（部署前改成你自己的，共三处：这里 2 处 + secrets.toml 1 处）
 # ------------------------------------------------------------------
-CONTACT_QQ = '你的QQ号'                            # 客服QQ号（侧边栏 + 付款引导处显示，上线前改成自己的小号）
+CONTACT_QQ = '3302008211'                            # 客服QQ号（侧边栏 + 付款引导处显示，上线前改成自己的小号）
 QR_CODE_GLOB = os.path.join('static', '收款码.*')  # 收款码图片，如 static/收款码.png（jpg 也行）
 
 
@@ -102,9 +103,31 @@ uploaded = st.file_uploader(
          '没有时间列也可以，会按默认采样率 1000 Hz 处理。',
 )
 
+# ------------------------------------------------------------------
+# 示例数据演示模式：客户没有数据也能一键看完整效果（转化利器）
+# ------------------------------------------------------------------
+DEMO_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        '示例数据', '示例数据_含时间列.csv')
+
+demo_mode = False
+if uploaded is not None:
+    st.session_state.pop('demo_file', None)         # 用户上传了真数据 → 自动退出演示
+elif 'demo_file' in st.session_state:
+    uploaded = st.session_state['demo_file']        # 演示中：把示例数据当作上传的文件
+    demo_mode = True
+
 if uploaded is None:
-    st.info('👆 请先上传数据文件（可先用本项目自带的「示例数据」文件夹里的 CSV 试一试）')
+    st.info('👆 请先上传数据文件（Excel .xlsx 或 CSV，第一列时间、第二列幅值最佳）')
+    if os.path.exists(DEMO_CSV) and st.button('🎬 没有数据？点此用示例数据立即体验'):
+        with open(DEMO_CSV, 'rb') as f:
+            demo_file = io.BytesIO(f.read())
+        demo_file.name = os.path.basename(DEMO_CSV)  # 模拟上传文件的 name 属性
+        st.session_state['demo_file'] = demo_file
+        st.rerun()
     st.stop()
+
+if demo_mode:
+    st.caption('🎬 当前为示例数据演示 —— 上传你自己的文件即可自动替换')
 
 # ------------------------------------------------------------------
 # 1. 读取 → 选列 → 清洗 → 采样率 → FFT → 滤波
